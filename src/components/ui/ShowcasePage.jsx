@@ -121,7 +121,7 @@ export default function ShowcasePage() {
             </div>
 
             {/* Top Navigation - Home Icon Only */}
-            <div className="absolute top-4 left-4 z-10">
+            <div className="absolute top-20 left-4 z-10">
                 <Link
                     to="/"
                     className="flex items-center justify-center p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:border-bakery-brown/50 transition-all border-2 border-white/50"

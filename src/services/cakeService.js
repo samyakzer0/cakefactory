@@ -7,9 +7,13 @@ import { supabase, isMockMode } from '../lib/supabase';
  */
 export async function saveCake(cakeConfig) {
     try {
-        // If in mock mode, return a mock ID
+        // If in mock mode, save to localStorage
         if (isMockMode) {
             const mockId = Math.random().toString(36).substring(2, 15);
+            const mockCakes = JSON.parse(localStorage.getItem('mockCakes') || '{}');
+            mockCakes[mockId] = cakeConfig;
+            localStorage.setItem('mockCakes', JSON.stringify(mockCakes));
+            console.log('Saved cake to localStorage:', mockId, cakeConfig);
             return {
                 data: { id: mockId },
                 error: null
@@ -55,22 +59,22 @@ export async function saveCake(cakeConfig) {
  */
 export async function getCakeById(id) {
     try {
-        // If in mock mode, return a mock cake
+        // If in mock mode, retrieve from localStorage
         if (isMockMode) {
+            const mockCakes = JSON.parse(localStorage.getItem('mockCakes') || '{}');
+            const cake = mockCakes[id];
+
+            console.log('Loading cake from localStorage:', id, cake);
+
+            if (!cake) {
+                return {
+                    data: null,
+                    error: new Error('Cake not found')
+                };
+            }
+
             return {
-                data: {
-                    id,
-                    layers: 2,
-                    baseColor: '#FFB7B2',
-                    frostingColor: '#FDF5E6',
-                    icingColor: '#AEC6CF',
-                    flavor: 'Vanilla',
-                    toppings: [],
-                    candles: 1,
-                    cakeText: 'Happy Birthday',
-                    hoverMessage: 'Make a Wish',
-                    hoverMessageColor: '#FFD700',
-                },
+                data: { id, ...cake },
                 error: null
             };
         }
