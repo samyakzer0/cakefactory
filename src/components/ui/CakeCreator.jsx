@@ -13,10 +13,6 @@ export default function CakeCreator() {
     const [isSaving, setIsSaving] = useState(false);
     const [error, setError] = useState(null);
 
-    React.useEffect(() => {
-        randomizeCake();
-    }, []);
-
     const triggerConfetti = () => {
         const scalar = 2;
         const triangle = confetti.shapeFromPath({

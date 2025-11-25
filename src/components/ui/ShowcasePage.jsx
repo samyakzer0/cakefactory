@@ -134,7 +134,7 @@ export default function ShowcasePage() {
             </div>
 
             {/* Bottom Action Buttons */}
-            <div className="absolute bottom-6 left-6 right-6 z-10">
+            <div className="absolute bottom-20 left-6 right-6 z-10">
                 <div className="flex items-end justify-between">
                     {/* Create Your Own Button - Bottom Left */}
                     <motion.div
