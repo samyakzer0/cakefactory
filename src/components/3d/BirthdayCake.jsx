@@ -105,10 +105,8 @@ export const BirthdayCake = ({ icingColor, baseColor, frostingColor, candles = 0
                             {cakeText}
                             <meshStandardMaterial
                                 color={icingColor || '#AEC6CF'}
-                                metalness={0.3}
-                                roughness={0.2}
-                                emissive={icingColor || '#AEC6CF'}
-                                emissiveIntensity={0.1}
+                                metalness={0}
+                                roughness={0.8}
                             />
                         </Text3D>
                     </Center>

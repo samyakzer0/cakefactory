@@ -4,12 +4,12 @@ import { PALETTES, ALL_COLORS } from '../constants/palettes';
 export const useStore = create((set) => ({
     cakeConfig: {
         layers: 2,
-        baseColor: '#FFB7B2', // pastel pink
-        frostingColor: '#FDF5E6', // cream
-        icingColor: '#AEC6CF', // pastel blue
+        baseColor: '#F5E6D3', // Vanilla cake
+        frostingColor: '#FFFEF0', // Vanilla buttercream
+        icingColor: '#FFE4B5', // Light vanilla
         flavor: 'Vanilla',
         toppings: [],
-        candles: 1,
+        candles: 5,
         cakeText: 'Happy Birthday',
         hoverMessage: 'Make a Wish',
         hoverMessageColor: '#FFD700', // Gold

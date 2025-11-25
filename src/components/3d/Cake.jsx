@@ -23,13 +23,21 @@ export default function Cake() {
             {/* Base Layer */}
             <mesh castShadow position={[0, 0.5, 0]}>
                 <cylinderGeometry args={[1, 1, 1, 32]} />
-                <meshStandardMaterial color={cakeConfig.baseColor} />
+                <meshStandardMaterial
+                    color={cakeConfig.baseColor}
+                    roughness={0.9}
+                    metalness={0}
+                />
             </mesh>
 
             {/* Frosting/Icing Drips (Simplified as a top layer for now) */}
             <mesh position={[0, 1.01, 0]}>
                 <cylinderGeometry args={[1.02, 1.02, 0.1, 32]} />
-                <meshStandardMaterial color={cakeConfig.frostingColor} />
+                <meshStandardMaterial
+                    color={cakeConfig.frostingColor}
+                    roughness={0.7}
+                    metalness={0}
+                />
             </mesh>
 
             {/* Candles */}
