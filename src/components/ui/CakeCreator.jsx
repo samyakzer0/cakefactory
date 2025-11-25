@@ -3,20 +3,39 @@ import Scene from '../3d/Scene';
 import CustomizerPanel from './CustomizerPanel';
 import { Link, useNavigate } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
+import { saveCake } from '../../services/cakeService';
 
 export default function CakeCreator() {
     const navigate = useNavigate();
     const { cakeConfig, randomizeCake } = useStore();
     const [isPanelOpen, setIsPanelOpen] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
+    const [error, setError] = useState(null);
 
     React.useEffect(() => {
         randomizeCake();
     }, []);
 
-    const handleBake = () => {
-        // In a real app, we would save to Supabase here
-        const mockId = Math.random().toString(36).substring(7);
-        navigate(`/${mockId}`);
+    const handleBake = async () => {
+        setIsSaving(true);
+        setError(null);
+
+        try {
+            const { data, error } = await saveCake(cakeConfig);
+
+            if (error) {
+                setError('Failed to save your cake. Please try again.');
+                setIsSaving(false);
+                return;
+            }
+
+            // Navigate to the shareable URL
+            navigate(`/${data.id}`);
+        } catch (err) {
+            console.error('Error saving cake:', err);
+            setError('Something went wrong. Please try again.');
+            setIsSaving(false);
+        }
     };
 
     return (
@@ -82,11 +101,27 @@ export default function CakeCreator() {
                 </div>
 
                 <div className="p-6 border-t border-white/20 bg-white/10">
+                    {error && (
+                        <div className="mb-3 p-3 bg-red-100 border border-red-300 rounded-lg text-red-700 text-sm text-center">
+                            {error}
+                        </div>
+                    )}
                     <button
                         onClick={handleBake}
-                        className="w-full py-4 bg-white/80 backdrop-blur-sm text-bakery-brown font-bold text-xl rounded-full shadow-lg hover:bg-white hover:shadow-2xl hover:scale-105 transition-all border-2 border-white/50"
+                        disabled={isSaving}
+                        className="w-full py-4 bg-white/80 backdrop-blur-sm text-bakery-brown font-bold text-xl rounded-full shadow-lg hover:bg-white hover:shadow-2xl hover:scale-105 transition-all border-2 border-white/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                     >
-                        Bake Now!
+                        {isSaving ? (
+                            <span className="flex items-center justify-center gap-2">
+                                <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Baking...
+                            </span>
+                        ) : (
+                            'Bake Now!'
+                        )}
                     </button>
                 </div>
             </div>

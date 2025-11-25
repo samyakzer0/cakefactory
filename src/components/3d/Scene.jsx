@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, PerspectiveCamera, ContactShadows } from '@react-three/drei';
-import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing';
 import { Physics } from '@react-three/rapier';
 import { Table } from './Table';
 import { TableCloth } from './TableCloth';

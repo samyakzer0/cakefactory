@@ -32,5 +32,20 @@ export const useStore = create((set) => ({
                 hoverMessageColor: randomHoverColor,
             }
         }));
-    }
+    },
+    loadCakeConfig: (config) => set({ cakeConfig: config }),
+    resetCakeConfig: () => set({
+        cakeConfig: {
+            layers: 2,
+            baseColor: '#FFB7B2',
+            frostingColor: '#FDF5E6',
+            icingColor: '#AEC6CF',
+            flavor: 'Vanilla',
+            toppings: [],
+            candles: 1,
+            cakeText: 'Happy Birthday',
+            hoverMessage: 'Make a Wish',
+            hoverMessageColor: '#FFD700',
+        }
+    })
 }));
